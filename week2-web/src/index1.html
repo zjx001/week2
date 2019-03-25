@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    123
+    <div>
+        <ul>
+
+        </ul>
+        <input type="text" class="app">
+        <button>提交评论</button>
+    </div>
+</body>
+<script>
+    var str = location.search
+    var arr;
+    console.log(str)
+    const xhr = new XMLHttpRequest()
+    xhr.open('get', "/getapp", true)
+    xhr.send()
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(JSON.parse(xhr.responseText))
+                render(JSON.parse(xhr.responseText).data)
+            }
+        }
+    }
+
+    function render(data) {
+        data.forEach(file => {
+            arr += `
+            <li>${file.app}</li>
+            `
+        })
+        const ul = document.querySelector('ul')
+        ul.innerHTML = arr
+    }
+</script>
+
+</html>
